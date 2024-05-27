@@ -5,6 +5,8 @@ import numpy as np
 
 funktions = ["bessel1","bessel2","colorwave01","colorwave02","radial_wave","colorwave26","radial_wave3","radial_wave5","radial_wave6","colorwave25","dantewave2"]
 
+#05/27/24 new half size: 26 tall by 26 wide (with 650 total pixels, not 676) 
+
 quad_odd_x = [i for i in range(0,26)]
 quad_rev_y = [i for i in range(12,-1,-1)]
 
@@ -14,11 +16,11 @@ quad_1_y = []
 quad_2_x = []
 quad_2_y = []
 
-quad_3_x = []
-quad_3_y = []
+#quad_3_x = []
+#quad_3_y = []
 
-quad_4_x = []
-quad_4_y = []
+#quad_4_x = []
+#quad_4_y = []
 
 quad_top_x = []
 quad_top_y = []
@@ -32,11 +34,11 @@ quad_1_y_t = []
 quad_2_x_t = []
 quad_2_y_t = []
 
-quad_3_x_t = []
-quad_3_y_t = []
+# quad_3_x_t = []
+# quad_3_y_t = []
 
-quad_4_x_t = []
-quad_4_y_t = []
+# quad_4_x_t = []
+# quad_4_y_t = []
 
 quad_left_x = []
 quad_left_y = []
@@ -80,19 +82,19 @@ for x in quad_odd_x:
             quad_1_x_t.extend([x])
             quad_1_y_t.extend([y])
             
-            quad_3_x_t.extend([x])
+            # quad_3_x_t.extend([x])
 #             quad_3_y_t.extend([y + y_max_left + incrementer_left]) # For normal wired 3rd grid
-            quad_3_y_t.extend([quad_rev_y[y + 13 - y_max_left] + y_max_left + incrementer_left]) # for reverse wired 3rd grid
+            # quad_3_y_t.extend([quad_rev_y[y + 13 - y_max_left] + y_max_left + incrementer_left]) # for reverse wired 3rd grid
             
         if y < y_max_bottom:
             quad_btm_x.extend([x])
             quad_btm_y.extend([y])
             
-            quad_3_x.extend([x])
-            quad_3_y.extend([y_max_top + y])
+            # quad_3_x.extend([x])
+            # quad_3_y.extend([y_max_top + y])
             
-            quad_4_x.extend([x+26])
-            quad_4_y.extend([y_max_top+y])
+            # quad_4_x.extend([x+26])
+            # quad_4_y.extend([y_max_top+y])
             
             
             quad_right_x.extend([x])
@@ -101,10 +103,12 @@ for x in quad_odd_x:
             quad_2_x_t.extend([x + 26])
             quad_2_y_t.extend([y])
             
-            quad_4_x_t.extend([x + 26])
-            quad_4_y_t.extend([y + y_max_right + incrementer_rt])
+            # quad_4_x_t.extend([x + 26])
+            # quad_4_y_t.extend([y + y_max_right + incrementer_rt])
 			
-pop_ix_quad1 = [i for i in range(25,26*2*7+1,26*2)] + [i for i in range(26,26*2*6+1,26*2)]
+pop_ix_quad1 = [i for i in range(25,26*7+1,26*2)] + [i for i in range(26,26*6+1,26*2)]
+# pop_ix_quad1 = [i for i in range(25,26*2*7+1,26*2)] + [i for i in range(26,26*2*6+1,26*2)]
+
 pop_ix_quad1.sort()
 
 def flatMatQuadMode(pixel_mat,grid_pos = 'top'):
@@ -187,16 +191,16 @@ def flatMatQuads(pixel_mat, layout = 'mirror'):
         false_mat_2 = np.zeros((26,13))
         false_mat_2[quad_top_x,quad_top_y] = pixel_mat[quad_2_x,quad_2_y]
 
-        false_mat_3 = np.zeros((26,13))
-        false_mat_3[quad_btm_x,quad_btm_y] = pixel_mat[quad_3_x,quad_3_y]
+        # false_mat_3 = np.zeros((26,13))
+        # false_mat_3[quad_btm_x,quad_btm_y] = pixel_mat[quad_3_x,quad_3_y]
         #false_mat_3 = np.fliplr(false_mat_3)
-        false_mat_4 = np.zeros((26,13))
-        false_mat_4[quad_btm_x,quad_btm_y] = pixel_mat[quad_4_x,quad_4_y]
+        # false_mat_4 = np.zeros((26,13))
+        # false_mat_4[quad_btm_x,quad_btm_y] = pixel_mat[quad_4_x,quad_4_y]
 
         quad_1_flat = flatMatQuadMode(false_mat_1, grid_pos = 'top')
         quad_2_flat = flatMatQuadMode(false_mat_2, grid_pos = 'top')
-        quad_3_flat = flatMatQuadMode(false_mat_3, grid_pos = 'bottom')
-        quad_4_flat = flatMatQuadMode(false_mat_4, grid_pos = 'bottom')
+        # quad_3_flat = flatMatQuadMode(false_mat_3, grid_pos = 'bottom')
+        # quad_4_flat = flatMatQuadMode(false_mat_4, grid_pos = 'bottom')
     else:
         false_mat_1 = np.zeros((26,13))
         false_mat_1[quad_left_x,quad_left_y] = pixel_mat[quad_1_x_t,quad_1_y_t]
@@ -204,23 +208,23 @@ def flatMatQuads(pixel_mat, layout = 'mirror'):
         false_mat_2 = np.zeros((26,13))
         false_mat_2[quad_right_x,quad_right_y] = pixel_mat[quad_2_x_t,quad_2_y_t]
 
-        false_mat_3 = np.zeros((26,13))
-        false_mat_3[quad_left_x,quad_left_y] = pixel_mat[quad_3_x_t,quad_3_y_t]
+        # false_mat_3 = np.zeros((26,13))
+        # false_mat_3[quad_left_x,quad_left_y] = pixel_mat[quad_3_x_t,quad_3_y_t]
         
-        false_mat_4 = np.zeros((26,13))
-        false_mat_4[quad_right_x,quad_right_y] = pixel_mat[quad_4_x_t,quad_4_y_t]
+        # false_mat_4 = np.zeros((26,13))
+        # false_mat_4[quad_right_x,quad_right_y] = pixel_mat[quad_4_x_t,quad_4_y_t]
 
         quad_1_flat = flatMatQuadMode(false_mat_1, grid_pos = 'top')
         quad_2_flat = flatMatQuadMode(false_mat_2, grid_pos = 'bottom')
-        quad_3_flat = flatMatQuadMode(false_mat_3, grid_pos = 'top')
-        quad_4_flat = flatMatQuadMode(false_mat_4, grid_pos = 'bottom')
+        # quad_3_flat = flatMatQuadMode(false_mat_3, grid_pos = 'top')
+        # quad_4_flat = flatMatQuadMode(false_mat_4, grid_pos = 'bottom')
         
     
     quad_1_flat = np.delete(quad_1_flat, pop_ix_quad1)
     quad_2_flat = np.delete(quad_2_flat, pop_ix_quad1)
     
-    quad_3_flat = np.delete(quad_3_flat, pop_ix_quad1)
-    quad_4_flat = np.delete(quad_4_flat, pop_ix_quad1)
+    # quad_3_flat = np.delete(quad_3_flat, pop_ix_quad1)
+    # quad_4_flat = np.delete(quad_4_flat, pop_ix_quad1)
     
-    return np.concatenate((quad_1_flat ,quad_2_flat, quad_3_flat, quad_4_flat), axis = None)
+    return np.concatenate((quad_1_flat ,quad_2_flat), axis = None) #quad_3_flat, quad_4_flat
     
